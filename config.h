@@ -6,13 +6,15 @@
 #include <algorithm>
 using std::max, std::min;
 
-constexpr const float &min(const int &a, const float &b) {
-    return std::min((float)a, b);
-}
+constexpr const float &min(const int &a, const float &b);
 
 #endif
 
 #ifndef _WIN32
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define _POSIX_C_SOURCE 199309L
 #include <errno.h>
@@ -31,7 +33,6 @@ constexpr const float &min(const int &a, const float &b) {
 
 #define ZeroMemory(Destination,Length) memset((Destination),0,(Length))
 
-
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
 typedef unsigned int UINT;
@@ -39,22 +40,12 @@ typedef unsigned int DWORD;
 
 typedef const char *LPCSTR;
 
-int lstrlen(LPCSTR lpString) {
-    return strlen(lpString);
-}
+int lstrlen(LPCSTR lpString);
+void Sleep(DWORD dwMilliseconds);
 
-void Sleep(DWORD dwMilliseconds) {
-    if (dwMilliseconds <= 0) {
-        return;
-    }
-
-    struct timespec ts = {
-        dwMilliseconds / 1000L,
-        (dwMilliseconds % 1000L) * 1000000L
-    };
-    
-    while (nanosleep(&ts, &ts) == -1 && errno == EINTR) {}
+#ifdef __cplusplus
 }
+#endif
 
 #endif
 

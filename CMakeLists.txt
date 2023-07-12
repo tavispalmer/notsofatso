@@ -111,6 +111,7 @@ if (MSVC)
 else()
     add_library(notsofatso
         ${NSF_CORE}
+        config.cpp
     )
 endif()
 

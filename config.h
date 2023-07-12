@@ -6,7 +6,9 @@
 #include <algorithm>
 using std::max, std::min;
 
-constexpr const float &min(const int &a, const float &b);
+constexpr const float &min(const int &a, const float &b) {
+    return std::min((float)a, b);
+}
 
 #endif
 

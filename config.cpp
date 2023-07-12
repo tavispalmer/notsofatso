@@ -1,9 +1,5 @@
 #include "config.h"
 
-constexpr const float &min(const int &a, const float &b) {
-    return std::min((float)a, b);
-}
-
 #ifndef _WIN32
 
 int lstrlen(LPCSTR lpString) {

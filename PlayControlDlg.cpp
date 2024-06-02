@@ -48,9 +48,9 @@ void CPlayControlDlg_Slide::OnInitDialog()
 	m_slider.AttachToControl(hWnd,IDC_PLAYSLIDER);
 	m_tracktext.AttachToControl(hWnd,IDC_TRACKTEXT);
 
-	AFX_MAPMESSAGE(IDC_NEXT,BN_CLICKED,OnNext);
-	AFX_MAPMESSAGE(IDC_PREV,BN_CLICKED,OnPrev);
-	AFX_MAPMESSAGE(IDC_PLAY,BN_CLICKED,OnPlay);
+	AFX_MAPMESSAGE(IDC_NEXT,BN_CLICKED,&CPlayControlDlg_Slide::OnNext);
+	AFX_MAPMESSAGE(IDC_PREV,BN_CLICKED,&CPlayControlDlg_Slide::OnPrev);
+	AFX_MAPMESSAGE(IDC_PLAY,BN_CLICKED,&CPlayControlDlg_Slide::OnPlay);
 
 	LoadValues();
 }

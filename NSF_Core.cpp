@@ -1270,64 +1270,64 @@ int CNSFCore::LoadNSF(const CNSFFile* fl)
 
 	/*	Reset Read/Write Procs			*/
 	
-	ReadMemory[0] = ReadMemory[1] = ReadMemory_RAM;
-	ReadMemory[2] = ReadMemory[3] = ReadMemory_Default;
-	ReadMemory[4] =					ReadMemory_pAPU;
-	ReadMemory[5] =					ReadMemory_ExRAM;
-	ReadMemory[6] = ReadMemory[7] = ReadMemory_SRAM;
+	ReadMemory[0] = ReadMemory[1] = &CNSFCore::ReadMemory_RAM;
+	ReadMemory[2] = ReadMemory[3] = &CNSFCore::ReadMemory_Default;
+	ReadMemory[4] =					&CNSFCore::ReadMemory_pAPU;
+	ReadMemory[5] =					&CNSFCore::ReadMemory_ExRAM;
+	ReadMemory[6] = ReadMemory[7] = &CNSFCore::ReadMemory_SRAM;
 
-	WriteMemory[0] = WriteMemory[1] =	WriteMemory_RAM;
-	WriteMemory[2] = WriteMemory[3] =	WriteMemory_Default;
-	WriteMemory[4] =					WriteMemory_pAPU;
-	WriteMemory[5] =					WriteMemory_ExRAM;
-	WriteMemory[6] = WriteMemory[7] =	WriteMemory_SRAM;
+	WriteMemory[0] = WriteMemory[1] =	&CNSFCore::WriteMemory_RAM;
+	WriteMemory[2] = WriteMemory[3] =	&CNSFCore::WriteMemory_Default;
+	WriteMemory[4] =					&CNSFCore::WriteMemory_pAPU;
+	WriteMemory[5] =					&CNSFCore::WriteMemory_ExRAM;
+	WriteMemory[6] = WriteMemory[7] =	&CNSFCore::WriteMemory_SRAM;
 
 	for(i = 8; i < 16; i++)
 	{
-		ReadMemory[i] = ReadMemory_ROM;
-		WriteMemory[i] = WriteMemory_Default;
+		ReadMemory[i] = &CNSFCore::ReadMemory_ROM;
+		WriteMemory[i] = &CNSFCore::WriteMemory_Default;
 	}
 
 	if(nExternalSound & EXTSOUND_FDS)
 	{
-		WriteMemory[0x06] = WriteMemory_FDSRAM;
-		WriteMemory[0x07] = WriteMemory_FDSRAM;
-		WriteMemory[0x08] = WriteMemory_FDSRAM;
-		WriteMemory[0x09] = WriteMemory_FDSRAM;
-		WriteMemory[0x0A] = WriteMemory_FDSRAM;
-		WriteMemory[0x0B] = WriteMemory_FDSRAM;
-		WriteMemory[0x0C] = WriteMemory_FDSRAM;
-		WriteMemory[0x0D] = WriteMemory_FDSRAM;
-		ReadMemory[0x06] = ReadMemory_ROM;
-		ReadMemory[0x07] = ReadMemory_ROM;
+		WriteMemory[0x06] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x07] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x08] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x09] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x0A] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x0B] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x0C] = &CNSFCore::WriteMemory_FDSRAM;
+		WriteMemory[0x0D] = &CNSFCore::WriteMemory_FDSRAM;
+		ReadMemory[0x06] = &CNSFCore::ReadMemory_ROM;
+		ReadMemory[0x07] = &CNSFCore::ReadMemory_ROM;
 	}
 	if(!bPALMode)	//no expansion sound available on a PAL system
 	{
 		if(nExternalSound & EXTSOUND_VRC7)
 		{
-			WriteMemory[9] = WriteMemory_VRC7;
+			WriteMemory[9] = &CNSFCore::WriteMemory_VRC7;
 			VRC7_Init();
 		}
 		if(nExternalSound & EXTSOUND_VRC6)
 		{
-			WriteMemory[0x09] = WriteMemory_VRC6;	//if both VRC6+VRC7... it MUST go to WriteMemory_VRC6 
-			WriteMemory[0x0A] = WriteMemory_VRC6;	// or register writes will be lost (WriteMemory_VRC6 calls
-			WriteMemory[0x0B] = WriteMemory_VRC6;	// WriteMemory_VRC7 if needed)
+			WriteMemory[0x09] = &CNSFCore::WriteMemory_VRC6;	//if both VRC6+VRC7... it MUST go to WriteMemory_VRC6 
+			WriteMemory[0x0A] = &CNSFCore::WriteMemory_VRC6;	// or register writes will be lost (WriteMemory_VRC6 calls
+			WriteMemory[0x0B] = &CNSFCore::WriteMemory_VRC6;	// WriteMemory_VRC7 if needed)
 		}
 		if(nExternalSound & EXTSOUND_N106)
 		{
-			WriteMemory[0x04] = WriteMemory_N106;
-			ReadMemory[0x04] = ReadMemory_N106;
-			WriteMemory[0x0F] = WriteMemory_N106;
+			WriteMemory[0x04] = &CNSFCore::WriteMemory_N106;
+			ReadMemory[0x04] = &CNSFCore::ReadMemory_N106;
+			WriteMemory[0x0F] = &CNSFCore::WriteMemory_N106;
 		}
 		if(nExternalSound & EXTSOUND_FME07)
 		{
-			WriteMemory[0x0C] = WriteMemory_FME07;
-			WriteMemory[0x0E] = WriteMemory_FME07;
+			WriteMemory[0x0C] = &CNSFCore::WriteMemory_FME07;
+			WriteMemory[0x0E] = &CNSFCore::WriteMemory_FME07;
 		}
 	}
 	if(nExternalSound & EXTSOUND_MMC5)			//MMC5 still has a multiplication reg that needs to be available on PAL tunes
-		WriteMemory[0x05] = WriteMemory_MMC5;
+		WriteMemory[0x05] = &CNSFCore::WriteMemory_MMC5;
 
 	return 1;
 }

@@ -21,7 +21,7 @@
 //  AboutDlg.cpp
 //
 
-#include "NSF.h"
+#include "../NSF.h"
 #include <ShellAPI.h>
 
 void CAboutDlg::OnInitDialog()

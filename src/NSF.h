@@ -28,32 +28,32 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <stdio.h>
-#include "resource.h"
+#include "../resources/resource.h"
 
-#include "DFC.h"
+#include "dfc/DFC.h"
 
-#include "NSF_File.h"
-#include "NSF_Core.h"
+#include "core/NSF_File.h"
+#include "core/NSF_Core.h"
 
 class CNSF;
 
-#include "AboutDlg.h"
-#include "ConfigDlg.h"
-#include "ChannelsDlg.h"
-#include "VRC6Dlg.h"
-#include "MMC5Dlg.h"
-#include "N106Dlg.h"
-#include "VRC7Dlg.h"
-#include "FME07Dlg.h"
-#include "PlayControlDlg.h"
-#include "MainControlDlg.h"
-#include "MiniPlayControlDlg.h"
+#include "gui/AboutDlg.h"
+#include "gui/ConfigDlg.h"
+#include "gui/ChannelsDlg.h"
+#include "gui/VRC6Dlg.h"
+#include "gui/MMC5Dlg.h"
+#include "gui/N106Dlg.h"
+#include "gui/VRC7Dlg.h"
+#include "gui/FME07Dlg.h"
+#include "gui/PlayControlDlg.h"
+#include "gui/MainControlDlg.h"
+#include "gui/MiniPlayControlDlg.h"
 
-#include "PlaylistDlg.h"
-#include "TrackInfoDlg.h"
-#include "GeneralFileInfoDlg.h"
-#include "TagInfoDlg.h"
-#include "FileInfoDlg.h"
+#include "gui/PlaylistDlg.h"
+#include "gui/TrackInfoDlg.h"
+#include "gui/GeneralFileInfoDlg.h"
+#include "gui/TagInfoDlg.h"
+#include "gui/FileInfoDlg.h"
 
 #include "Winamp.h"
 

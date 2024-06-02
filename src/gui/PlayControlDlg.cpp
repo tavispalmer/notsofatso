@@ -23,7 +23,7 @@
 //
 
 
-#include "NSF.h"
+#include "../NSF.h"
 
 CPlayControlDlg_Slide::CPlayControlDlg_Slide() : CDDialog()
 {

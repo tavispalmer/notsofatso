@@ -21,7 +21,7 @@
 //  PlaylistDlg.cpp
 //
 
-#include "NSF.h"
+#include "../NSF.h"
 
 void CPlaylistDlg::OnInitDialog()
 {

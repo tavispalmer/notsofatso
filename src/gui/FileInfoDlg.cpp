@@ -23,7 +23,7 @@
 //
 
 
-#include "NSF.h"
+#include "../NSF.h"
 
 CFileInfoDlg::CFileInfoDlg() : CDDialog()
 {

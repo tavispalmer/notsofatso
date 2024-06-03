@@ -1,6 +1,17 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(notsofatso VERSION 8.5.1 LANGUAGES C CXX)
 
+# taken from SFML: https://github.com/SFML/SFML
+macro(nsf_set_option var default type docstring)
+    if(NOT DEFINED ${var})
+        set(${var} ${default})
+    endif()
+    set(${var} ${${var}} CACHE ${type} ${docstring} FORCE)
+endmacro()
+
+nsf_set_option(NSF_BUILD_WINAMP TRUE BOOL "TRUE to build the Winamp plugin")
+nsf_set_option(NSF_BUILD_VLC TRUE BOOL "TRUE to build the VLC plugin")
+
 set(DFC
     src/dfc/DFC.h
     src/dfc/DFC_Array.cpp
@@ -12,7 +23,7 @@ set(DFC
 )
 source_group("DFC" FILES ${DFC})
 
-set(HEADER_FILES_GUI``
+set(HEADER_FILES_GUI
     src/gui/AboutDlg.h
     src/gui/ChannelsDlg.h
     src/gui/ConfigDlg.h
@@ -94,15 +105,17 @@ source_group("Source Files" FILES ${SOURCE_FILES_})
 
 source_group("" FILES Readme.txt)
 
-add_library(in_NotSoFatso SHARED
-    ${DFC}
-    ${HEADER_FILES_GUI}
-    ${HEADER_FILES}
-    ${NSF_CORE}
-    ${RESOURCE_FILES}
-    ${SOURCE_FILES_GUI}
-    ${SOURCE_FILES_}
-    Readme.txt
-)
-target_link_libraries(in_NotSoFatso comctl32)
+if(NSF_BUILD_WINAMP)
+    add_library(in_NotSoFatso SHARED
+        ${DFC}
+        ${HEADER_FILES_GUI}
+        ${HEADER_FILES}
+        ${NSF_CORE}
+        ${RESOURCE_FILES}
+        ${SOURCE_FILES_GUI}
+        ${SOURCE_FILES_}
+        Readme.txt
+    )
+    target_link_libraries(in_NotSoFatso comctl32)
+endif()
 

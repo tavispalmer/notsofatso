@@ -22,8 +22,10 @@
 //
 //
 
-
+#include "PlayControlDlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 CPlayControlDlg_Slide::CPlayControlDlg_Slide() : CDDialog()
 {

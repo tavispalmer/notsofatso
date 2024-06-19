@@ -22,7 +22,10 @@
 //
 
 
+#include "MMC5Dlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CMMC5Dlg::OnInitDialog()
 {

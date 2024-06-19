@@ -23,6 +23,16 @@
 //    I love this chip!  Although it's not as easy as the others to emulate... but it sure sounds nice.
 //
 
+#ifndef __WAVE_N106_H_
+#define __WAVE_N106_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <math.h>
+#include <windows.h>
+
+#include "../config.h"
+
+#include "NSF_Core.h"
 
 class CN106Wave
 {
@@ -108,7 +118,7 @@ public:
 			while(usetick)
 			{
 				mn = (int)ceil(fFreqCount[i]);
-				mn = min(mn,usetick);
+				mn = MIN(mn,usetick);
 
 				usetick -= mn;
 				if(mix[i])
@@ -188,3 +198,5 @@ public:
 		}
 	}
 };
+
+#endif

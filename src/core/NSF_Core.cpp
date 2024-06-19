@@ -21,9 +21,6 @@
 //  NSF_Core.cpp
 //
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#include <stdio.h>
 #include "NSF_Core.h"
 #include "NSF_File.h"
 
@@ -770,7 +767,7 @@ void CNSFCore::EmulateAPU(BYTE bBurnCPUCycles)
 		else
 			tick = (int)ceil(fTicksUntilNextFrame);
 
-		tick = min(tick,fulltick);
+		tick = MIN(tick,fulltick);
 
 		fulltick -= tick;
 

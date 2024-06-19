@@ -25,37 +25,22 @@
 // I made pretty much every file include this header... kinda sloppy.
 //  feel free to change it if you don't like the compile time.
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#include <stdio.h>
-#include "../resources/resource.h"
+#ifndef __NSF_H_
+#define __NSF_H_
 
-#include "dfc/DFC.h"
+#define WIN32_LEAN_AND_MEAN
+#include <stdio.h>
+#include <windows.h>
 
 #include "core/NSF_File.h"
 #include "core/NSF_Core.h"
+#include "dfc/DFC.h"
+#include "Winamp.h"
 
 class CNSF;
 
-#include "gui/AboutDlg.h"
-#include "gui/ConfigDlg.h"
-#include "gui/ChannelsDlg.h"
-#include "gui/VRC6Dlg.h"
-#include "gui/MMC5Dlg.h"
-#include "gui/N106Dlg.h"
-#include "gui/VRC7Dlg.h"
-#include "gui/FME07Dlg.h"
-#include "gui/PlayControlDlg.h"
 #include "gui/MainControlDlg.h"
 #include "gui/MiniPlayControlDlg.h"
-
-#include "gui/PlaylistDlg.h"
-#include "gui/TrackInfoDlg.h"
-#include "gui/GeneralFileInfoDlg.h"
-#include "gui/TagInfoDlg.h"
-#include "gui/FileInfoDlg.h"
-
-#include "Winamp.h"
 
 /*
  *	I tried my best to comment everything so that it's understandable.  Be sure
@@ -189,3 +174,5 @@ public:
 	CMainControlDlg	mControlDlg;		//The GUI parent dialog
 	CMiniPlayControlDlg mMiniPlayDlg;	//The mini play control Dlg
 };
+
+#endif

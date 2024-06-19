@@ -22,8 +22,13 @@
 //
 //
 
-#include "../NSF.h"
-#include <CommDlg.h>
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <commdlg.h>
+
+#include "GeneralFileInfoDlg.h"
+
+#include "../../resources/resource.h"
 
 void CGeneralFileInfoDlg::OnInitDialog()
 {

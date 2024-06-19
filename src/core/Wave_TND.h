@@ -23,6 +23,17 @@
 //    Because of inter-dependencies between channel output, the Triangle,
 //  Noise, and DMC are all combined here in this class.
 
+#ifndef __WAVE_TND_H_
+#define __WAVE_TND_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <math.h>
+#include <windows.h>
+
+#include "../config.h"
+
+#include "NSF_Core.h"
+
 class CTNDWaves
 {
 public:
@@ -189,10 +200,10 @@ public:
 		{
 			mn = nNoiseFreqCount;
 			if(nTriFreqTimer.W > 8)
-				mn = min(mn,nTriFreqCount);
+				mn = MIN(mn,nTriFreqCount);
 			if(bDMCActive)
-				mn = min(mn,nDMCFreqCount);
-			mn = min(mn,ticks);
+				mn = MIN(mn,nDMCFreqCount);
+			mn = MIN(mn,ticks);
 			ticks -= mn;
 
 			nNoiseFreqCount -= mn;
@@ -335,3 +346,5 @@ public:
 		nMixL = nMixR = 0;
 	}
 };
+
+#endif

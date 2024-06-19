@@ -22,6 +22,17 @@
 //
 //
 
+#ifndef __NSF_FILE_H_
+#define __NSF_FILE_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <stdio.h>
+#include <windows.h>
+
+#include "../config.h"
+
+#include "stream.h"
+
 #define					HEADERTYPE_NESM			'MSEN'
 #define					HEADERTYPE_NSFE			'EFSN'
 
@@ -80,12 +91,18 @@ public:
 														//  (like track times, game title, Author, etc)
 														//If you're loading an NSF with intention to play it, needdata
 														//  must be true
+	template <class S>
+	int 			LoadStream(S* stream,BYTE needdata,BYTE ignoreversion);
 	int				SaveFile(LPCSTR path);				//Saves the NSF to a file... including any changes you made (like to track times, etc)
 	void			Destroy();							//Cleans up memory
 
 protected:
-	int		LoadFile_NESM(FILE* file,BYTE needdata,BYTE ignoreversion);	//these functions are used internally and should not be called
-	int		LoadFile_NSFE(FILE* file,BYTE needdata);
+	// int		LoadFile_NESM(FILE* file,BYTE needdata,BYTE ignoreversion);	//these functions are used internally and should not be called
+	template <class S>
+	int		LoadStream_NESM(S* stream,BYTE needdata,BYTE ignoreversion);
+	// int		LoadFile_NSFE(FILE* file,BYTE needdata);
+	template <class S>
+	int 	LoadStream_NSFE(S* stream,BYTE needdata);
 
 	int		SaveFile_NESM(FILE* file);
 	int		SaveFile_NSFE(FILE* file);
@@ -139,3 +156,298 @@ public:
 	//bankswitching info
 	BYTE				nBankswitch[8];		//The initial bankswitching registers needed for some NSFs.  If the NSF does not use bankswitching, these values will all be zero
 };
+
+#include "NSF_Core.h"
+
+#define SAFE_DELETE(p) { if(p){ delete[] p; p = NULL; } }
+#define SAFE_NEW(p,t,s,r) p = new t[s]; if(!p) return r; ZeroMemory(p,sizeof(t) * s)
+
+template <class S>
+int 	CNSFFile::LoadStream(S *stream,BYTE needdata,BYTE ignoreversion) {
+	Destroy();
+
+	if(!stream) return -1;
+
+	UINT type = 0;
+	stream->read((uint8_t*)&type,4);
+	int ret = -1;
+
+	if(type == HEADERTYPE_NESM)		ret = LoadStream_NESM(stream,needdata,ignoreversion);
+	if(type == HEADERTYPE_NSFE)		ret = LoadStream_NSFE(stream,needdata);
+
+	stream->seek(SeekFrom::Start(0));
+
+	// Snake's revenge puts '00' for the initial track, which (after subtracting 1) makes it 256 or -1 (bad!)
+	// This prevents that crap
+	if(nInitialTrack >= nTrackCount)
+		nInitialTrack = 0;
+	if(nInitialTrack < 0)
+		nInitialTrack = 0;
+
+	// if there's no tracks... this is a crap NSF
+	if(nTrackCount < 1)
+	{
+		Destroy();
+		return -1;
+	}
+
+	return ret;
+}
+
+template <class S>
+int		CNSFFile::LoadStream_NESM(S* stream,BYTE needdata,BYTE ignoreversion) {
+	int len;
+
+	len = stream->seek(SeekFrom::End(0)) - 0x80;
+	stream->seek(SeekFrom::Start(0));
+
+	if(len < 1) return -1;
+
+	//read the info
+	NESM_HEADER					hdr;
+	stream->read((uint8_t*)&hdr,0x80);
+
+	//confirm the header
+	if(hdr.nHeader != HEADERTYPE_NESM)			return -1;
+	if(hdr.nHeaderExtra != 0x1A)				return -1;
+	if((!ignoreversion) && (hdr.nVersion != 1))	return -1; //stupid NSFs claim to be above version 1  >_>
+
+	//NESM is generally easier to work with (but limited!)
+	//  just move the data over from NESM_HEADER over to our member data
+
+	bIsExtended =				0;
+	nIsPal =					hdr.nNTSC_PAL & 0x03;
+	nPAL_PlaySpeed =			hdr.nSpeedPAL;			//blarg
+	nNTSC_PlaySpeed =			hdr.nSpeedNTSC;			//blarg
+	nLoadAddress =				hdr.nLoadAddress;
+	nInitAddress =				hdr.nInitAddress;
+	nPlayAddress =				hdr.nPlayAddress;
+	nChipExtensions =			hdr.nExtraChip;
+
+
+	nTrackCount =				hdr.nTrackCount;
+	nInitialTrack =				hdr.nInitialTrack - 1;	//stupid 1-based number =P
+
+	memcpy(nBankswitch,hdr.nBankSwitch,8);
+
+	SAFE_NEW(szGameTitle,char,33,1);
+	SAFE_NEW(szArtist   ,char,33,1);
+	SAFE_NEW(szCopyright,char,33,1);
+
+	memcpy(szGameTitle,hdr.szGameTitle,32);
+	memcpy(szArtist   ,hdr.szArtist   ,32);
+	memcpy(szCopyright,hdr.szCopyright,32);
+
+	//read the NSF data
+	if(needdata)
+	{
+		SAFE_NEW(pDataBuffer,BYTE,len,1);
+		stream->read(pDataBuffer,len);
+		nDataBufferSize = len;
+	}
+
+	//if we got this far... it was a successful read
+	return 0;
+}
+
+template <class S>
+int 	CNSFFile::LoadStream_NSFE(S* stream,BYTE needdata) {
+	//restart the file
+	stream->seek(SeekFrom::Start(0));
+
+	//the vars we'll be using
+	UINT nChunkType;
+	int  nChunkSize;
+	int  nChunkUsed;
+	int  nDataPos = 0;
+	BYTE	bInfoFound = 0;
+	BYTE	bEndFound = 0;
+	BYTE	bBankFound = 0;
+
+	NSFE_INFOCHUNK	info;
+	ZeroMemory(&info,sizeof(NSFE_INFOCHUNK));
+	info.nTrackCount = 1;		//default values
+
+	//confirm the header!
+	stream->read((uint8_t*)&nChunkType,4);
+	if(nChunkType != HEADERTYPE_NSFE)			return -1;
+
+	//begin reading chunks
+	while(!bEndFound)
+	{
+		if(!stream->read((uint8_t*)&nChunkSize,4))		return -1;
+		stream->read((uint8_t*)&nChunkType,4);
+
+		switch(nChunkType)
+		{
+		case CHUNKTYPE_INFO:
+			if(bInfoFound)						return -1;	//only one info chunk permitted
+			if(nChunkSize < 8)					return -1;	//minimum size
+
+			bInfoFound = 1;
+			nChunkUsed = MIN((int)sizeof(NSFE_INFOCHUNK),nChunkSize);
+
+			stream->read((uint8_t*)&info,nChunkUsed);
+			stream->seek(SeekFrom::Current(nChunkSize - nChunkUsed));
+
+			bIsExtended =			1;
+			nIsPal =				info.nIsPal & 3;
+			nLoadAddress =			info.nLoadAddress;
+			nInitAddress =			info.nInitAddress;
+			nPlayAddress =			info.nPlayAddress;
+			nChipExtensions =		info.nExt;
+			nTrackCount =			info.nTrackCount;
+			nInitialTrack =			info.nStartingTrack;
+
+			nPAL_PlaySpeed =		(WORD)(1000000 / PAL_NMIRATE);		//blarg
+			nNTSC_PlaySpeed =		(WORD)(1000000 / NTSC_NMIRATE);		//blarg
+			break;
+
+		case CHUNKTYPE_DATA:
+			if(!bInfoFound)						return -1;
+			if(nDataPos)						return -1;
+			if(nChunkSize < 1)					return -1;
+
+			nDataBufferSize = nChunkSize;
+			nDataPos = stream->seek(SeekFrom::Current(0));
+
+			stream->seek(SeekFrom::Current(nChunkSize));
+			break;
+
+		case CHUNKTYPE_NEND:
+			bEndFound = 1;
+			break;
+
+		case CHUNKTYPE_TIME:
+			if(!bInfoFound)						return -1;
+			if(pTrackTime)						return -1;
+
+			SAFE_NEW(pTrackTime,int,nTrackCount,1);
+			nChunkUsed = MIN(nChunkSize / 4,nTrackCount);
+
+			stream->read((uint8_t*)pTrackTime,nChunkUsed*4);
+			stream->seek(SeekFrom::Current(nChunkSize - (nChunkUsed * 4)));
+
+			for(; nChunkUsed < nTrackCount; nChunkUsed++)
+				pTrackTime[nChunkUsed] = -1;	//negative signals to use default time
+
+			break;
+
+		case CHUNKTYPE_FADE:
+			if(!bInfoFound)						return -1;
+			if(pTrackFade)						return -1;
+
+			SAFE_NEW(pTrackFade,int,nTrackCount,1);
+			nChunkUsed = MIN(nChunkSize / 4,nTrackCount);
+
+			stream->read((uint8_t*)pTrackFade,nChunkUsed*4);
+			stream->seek(SeekFrom::Current(nChunkSize - (nChunkUsed * 4)));
+
+			for(; nChunkUsed < nTrackCount; nChunkUsed++)
+				pTrackFade[nChunkUsed] = -1;	//negative signals to use default time
+
+			break;
+
+		case CHUNKTYPE_BANK:
+			if(bBankFound)						return -1;
+
+			bBankFound = 1;
+			nChunkUsed = MIN(8,nChunkSize);
+
+			stream->read(nBankswitch,nChunkUsed);
+			stream->seek(SeekFrom::Current(nChunkSize - nChunkUsed));
+			break;
+
+		case CHUNKTYPE_PLST:
+			if(pPlaylist)						return -1;
+
+			nPlaylistSize = nChunkSize;
+			if(nPlaylistSize < 1)				break;  //no playlist?
+
+			SAFE_NEW(pPlaylist,BYTE,nPlaylistSize,1);
+			stream->read(pPlaylist,nChunkSize);
+			break;
+
+		case CHUNKTYPE_AUTH:		{
+			if(szGameTitle)						return -1;
+
+			char*		buffer;
+			char*		ptr;
+			SAFE_NEW(buffer,char,nChunkSize + 4,1);
+
+			stream->read((uint8_t*)buffer,nChunkSize);
+			ptr = buffer;
+
+			char**		ar[4] = {&szGameTitle,&szArtist,&szCopyright,&szRipper};
+			int			i;
+			for(i = 0; i < 4; i++)
+			{
+				nChunkUsed = lstrlen(ptr) + 1;
+				*ar[i] = new char[nChunkUsed];
+				if(!*ar[i]) { SAFE_DELETE(buffer); return 0; }
+				memcpy(*ar[i],ptr,nChunkUsed);
+				ptr += nChunkUsed;
+			}
+			SAFE_DELETE(buffer);
+									}break;
+
+		case CHUNKTYPE_TLBL:		{
+			if(!bInfoFound)						return -1;
+			if(szTrackLabels)					return -1;
+
+			SAFE_NEW(szTrackLabels,char*,nTrackCount,1);
+
+			char*		buffer;
+			char*		ptr;
+			SAFE_NEW(buffer,char,nChunkSize + nTrackCount,1);
+
+			stream->read((uint8_t*)buffer,nChunkSize);
+			ptr = buffer;
+
+			int			i;
+			for(i = 0; i < nTrackCount; i++)
+			{
+				nChunkUsed = lstrlen(ptr) + 1;
+				szTrackLabels[i] = new char[nChunkUsed];
+				if(!szTrackLabels[i]) { SAFE_DELETE(buffer); return 0; }
+				memcpy(szTrackLabels[i],ptr,nChunkUsed);
+				ptr += nChunkUsed;
+			}
+			SAFE_DELETE(buffer);
+									}break;
+
+		default:		//unknown chunk
+			nChunkType &= 0x000000FF;  //check the first byte
+			if((nChunkType >= 'A') && (nChunkType <= 'Z'))	//chunk is vital... don't continue
+				return -1;
+			//otherwise, just skip it
+			stream->seek(SeekFrom::Current(nChunkSize));
+
+			break;
+		}		//end switch
+	}			//end while
+
+	//if we exited the while loop without a 'return', we must have hit an NEND chunk
+	//  if this is the case, the file was layed out as it was expected.
+	//  now.. make sure we found both an info chunk, AND a data chunk... since these are
+	//  minimum requirements for a valid NSFE file
+
+	if(!bInfoFound)			return -1;
+	if(!nDataPos)			return -1;
+
+	//if both those chunks existed, this file is valid.  Load the data if it's needed
+
+	if(needdata)
+	{
+		stream->seek(SeekFrom::Start(nDataPos));
+		SAFE_NEW(pDataBuffer,BYTE,nDataBufferSize,1);
+		stream->read(pDataBuffer,nDataBufferSize);
+	}
+	else
+		nDataBufferSize = 0;
+
+	//return success!
+	return 0;
+}
+
+#endif

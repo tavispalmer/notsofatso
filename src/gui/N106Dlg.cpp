@@ -21,7 +21,10 @@
 //  N106Dlg.cpp
 //
 
+#include "N106Dlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CN106Dlg::OnInitDialog()
 {

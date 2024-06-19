@@ -21,6 +21,16 @@
 //  MMC5Dlg.h
 //
 
+#ifndef __MMC5_DLG_H_
+#define __MMC5_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../dfc/DFC.h"
+
+class CNSF;
+
 class CMMC5Dlg : public CDDialog
 {
 public:
@@ -57,3 +67,5 @@ public:
 	void		OnChangePan(BYTE chan);
 	int			WndProc(UINT msg,WPARAM wParam,LPARAM lParam);
 };
+
+#endif

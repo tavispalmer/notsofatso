@@ -22,6 +22,27 @@
 //
 //
 
+#ifndef __MAIN_CONTROL_DLG_H_
+#define __MAIN_CONTROL_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <stdio.h>
+#include <windows.h>
+
+#include "../core/NSF_File.h"
+#include "../dfc/DFC.h"
+#include "AboutDlg.h"
+#include "ChannelsDlg.h"
+#include "ConfigDlg.h"
+#include "FME07Dlg.h"
+#include "MMC5Dlg.h"
+#include "N106Dlg.h"
+#include "PlayControlDlg.h"
+#include "VRC6Dlg.h"
+#include "VRC7Dlg.h"
+
+class CNSF;
+
 class CMainControlDlg : public CDDialog
 {
 public:
@@ -68,3 +89,5 @@ public:
 	int			y_pos;
 
 };
+
+#endif

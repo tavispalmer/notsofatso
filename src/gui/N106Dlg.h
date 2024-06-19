@@ -21,6 +21,15 @@
 //  N106Dlg.h
 //
 
+#ifndef __N106_DLG_H_
+#define __N106_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../dfc/DFC.h"
+
+class CNSF;
 
 class CN106Dlg : public CDDialog
 {
@@ -73,3 +82,5 @@ public:
 	void		OnChangeInv(BYTE chan);
 	int			WndProc(UINT msg,WPARAM wParam,LPARAM lParam);
 };
+
+#endif

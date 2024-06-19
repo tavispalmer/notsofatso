@@ -22,6 +22,17 @@
 //
 //
 
+#ifndef __TRACK_INFO_DLG_H_
+#define __TRACK_INFO_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../core/NSF_File.h"
+#include "../dfc/DFC.h"
+
+class CNSF;
+
 class CTrackInfoDlg : public CDDialog
 {
 public:
@@ -63,3 +74,5 @@ public:
 	CDButton		m_getlength;
 	CDButton		m_getfade;
 };
+
+#endif

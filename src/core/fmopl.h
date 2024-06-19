@@ -35,14 +35,13 @@
 		- Disch
 */
 
+#ifndef __FMOPL_H_
+#define __FMOPL_H_
 
 /*	Section added to get this linkable from a C++ environment  -Disch		*/
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#ifndef __FMOPL_H_
-#define __FMOPL_H_
 
 /* --- system optimize --- */
 /* select bit size of output : 8 or 16 */
@@ -179,10 +178,9 @@ void OPLWrite(FM_OPL *OPL,UINT8 a,UINT8 v);
 /* YM3626/YM3812 local section */	// 'mix' values (for channel disabling) and stereo boolean value added -Disch
 void YM3812UpdateOne(FM_OPL *OPL, UINT8 *buffer, int size, UINT8* mix,UINT8 stereo);
 
-#endif
-
-
 /*	Section added to get this linkable from a C++ environment  -Disch		*/
 #ifdef __cplusplus
 }
+#endif
+
 #endif

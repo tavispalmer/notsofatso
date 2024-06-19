@@ -21,6 +21,12 @@
 //  DFC_Array.h
 //
 
+#ifndef __DFC_ARRAY_H_
+#define __DFC_ARRAY_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 class CDByteArray
 {
 public:
@@ -43,3 +49,5 @@ protected:
 	int				nCount;
 	int				nGrowBy;
 };
+
+#endif

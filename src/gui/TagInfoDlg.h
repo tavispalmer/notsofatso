@@ -22,6 +22,12 @@
 //
 //
 
+#ifndef __TAG_INFO_DLG_H_
+#define __TAG_INFO_DLG_H_
+
+#include "../core/NSF_File.h"
+#include "../dfc/DFC.h"
+
 class CTagInfoDlg : public CDDialog
 {	
 public:
@@ -39,3 +45,5 @@ public:
 	CDEdit			m_Copyright;
 	CDEdit			m_Ripper;
 };
+
+#endif

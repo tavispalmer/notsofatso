@@ -21,6 +21,12 @@
 //  NSF_Core.h
 //
 
+#ifndef __NSF_CORE_H_
+#define __NSF_CORE_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 union TWIN
 {
 	WORD						W;
@@ -32,6 +38,14 @@ union QUAD
 	UINT								D;
 	struct{ BYTE l; BYTE h; WORD w; }	B;
 };
+
+#include "Wave_FDS.h"
+#include "Wave_FME07.h"
+#include "Wave_MMC5.h"
+#include "Wave_N106.h"
+#include "Wave_Square.h"
+#include "Wave_TND.h"
+#include "Wave_VRC6.h"
 
 struct NSF_ADVANCEDOPTIONS
 {
@@ -76,17 +90,6 @@ struct NSF_ADVANCEDOPTIONS
 #define EXTSOUND_MMC5			0x08
 #define EXTSOUND_N106			0x10
 #define EXTSOUND_FME07			0x20
-
-#include <math.h>
-
-#include "Wave_Square.h"
-#include "Wave_TND.h"
-
-#include "Wave_VRC6.h"
-#include "Wave_MMC5.h"
-#include "Wave_N106.h"
-#include "Wave_FME07.h"
-#include "Wave_FDS.h"
 
 class CNSFCore;
 class CNSFFile;
@@ -406,3 +409,5 @@ protected:
 	int			nPrePassBase;
 	float		fSmDiv;
 };
+
+#endif

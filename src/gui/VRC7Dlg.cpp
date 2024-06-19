@@ -21,7 +21,10 @@
 //  N106Dlg.cpp
 //
 
+#include "VRC7Dlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CVRC7Dlg::OnInitDialog()
 {

@@ -21,6 +21,11 @@
 //  AboutDlg.h
 //
 
+#ifndef __ABOUT_DLG_H_
+#define __ABOUT_DLG_H_
+
+#include "../dfc/DFC.h"
+
 class CAboutDlg : public CDDialog
 {
 public:
@@ -29,3 +34,5 @@ public:
 	void		OnInitDialog();
 	void		OnSlickProductions();
 };
+
+#endif

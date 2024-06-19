@@ -21,6 +21,17 @@
 //  MiniPlayControlDlg.h
 //
 
+#ifndef __MINI_PLAY_CONTROL_DLG_H_
+#define __MINI_PLAY_CONTROL_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../core/NSF_File.h"
+#include "../dfc/DFC.h"
+
+class CNSF;
+
 class CMiniPlayControlDlg : public CDDialog
 {
 public:
@@ -52,3 +63,5 @@ public:
 	CDSlider	m_Slider;
 	CDStatic	m_TrackLabel;
 };
+
+#endif

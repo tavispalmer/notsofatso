@@ -21,6 +21,15 @@
 //  VRC7Dlg.h
 //
 
+#ifndef __VRC7_DLG_H_
+#define __VRC7_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../dfc/DFC.h"
+
+class CNSF;
 
 class CVRC7Dlg : public CDDialog
 {
@@ -67,3 +76,5 @@ public:
 	void		OnChangeInv(BYTE chan);
 	int			WndProc(UINT msg,WPARAM wParam,LPARAM lParam);
 };
+
+#endif

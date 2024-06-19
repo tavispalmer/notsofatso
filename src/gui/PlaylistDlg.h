@@ -22,6 +22,17 @@
 //
 //
 
+#ifndef __PLAYLIST_DLG_H_
+#define __PLAYLIST_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../core/NSF_File.h"
+#include "../dfc/DFC.h"
+
+class CNSF;
+
 class CPlaylistDlg : public CDDialog
 {
 public:
@@ -51,3 +62,5 @@ public:
 	CDListBox	m_tracklist;
 	CDListBox	m_playlist;
 };
+
+#endif

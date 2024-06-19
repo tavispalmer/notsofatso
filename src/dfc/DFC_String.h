@@ -21,7 +21,11 @@
 //  DFC_String.h
 //
 
+#ifndef __DFC_STRING_H_
+#define __DFC_STRING_H_
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 
 class CDString
 {
@@ -91,3 +95,5 @@ protected:
 	int				nDataLength;
 	int				nGrowBy;
 };
+
+#endif

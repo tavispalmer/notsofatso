@@ -22,7 +22,10 @@
 //
 
 
+#include "FME07Dlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CFME07Dlg::OnInitDialog()
 {

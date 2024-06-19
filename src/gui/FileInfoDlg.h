@@ -20,6 +20,18 @@
 //
 //  FileInfoDlg.h
 
+#ifndef __FILE_INFO_DLG_H_
+#define __FILE_INFO_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../dfc/DFC.h"
+#include "GeneralFileInfoDlg.h"
+#include "PlaylistDlg.h"
+#include "TagInfoDlg.h"
+#include "TrackInfoDlg.h"
+#include "../NSF.h"
 
 class CFileInfoDlg : public CDDialog
 {
@@ -51,3 +63,5 @@ public:
 	CDTab					m_tab;
 	CDStatic				m_clientrect;
 };
+
+#endif

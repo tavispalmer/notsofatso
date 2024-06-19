@@ -21,7 +21,9 @@
 //  MainControlDlg.cpp
 //
 
-#include "../NSF.h"
+#include "MainControlDlg.h"
+
+#include "../../resources/resource.h"
 
 CMainControlDlg::CMainControlDlg() : CDDialog()
 {

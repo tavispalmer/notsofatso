@@ -26,6 +26,12 @@
  *	http://classic.winamp.com
  */
 
+#ifndef __WINAMP_H_
+#define __WINAMP_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 #define OUT_VER 0x10
 
 typedef struct 
@@ -180,3 +186,5 @@ typedef struct
 
 LRESULT CALLBACK Winamp_WndProc(HWND,UINT,WPARAM,LPARAM);
 extern __declspec(dllexport) In_Module*	winampGetInModule2();
+
+#endif

@@ -23,7 +23,9 @@
 //
 
 
-#include "../NSF.h"
+#include "FileInfoDlg.h"
+
+#include "../../resources/resource.h"
 
 CFileInfoDlg::CFileInfoDlg() : CDDialog()
 {

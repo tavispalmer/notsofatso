@@ -24,7 +24,13 @@
 //
 //
 
-#include <CommCtrl.h>
+#ifndef __DFC_H_
+#define __DFC_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <commctrl.h>
+
 #include "DFC_String.h"
 #include "DFC_Array.h"
 
@@ -301,3 +307,5 @@ protected:
 	// data members
 	BYTE			bIsModal;
 };
+
+#endif

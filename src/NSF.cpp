@@ -22,8 +22,11 @@
 //
 //
 
+#include "gui/FileInfoDlg.h"
 #include "NSF.h"
+#include "Winamp.h"
 
+#include "../resources/resource.h"
 
 //////////////////////////////////////////////////////////////////////////
 //   Thread Entry

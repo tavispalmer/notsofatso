@@ -22,6 +22,16 @@
 //
 //
 
+#ifndef __WAVE_FME07_H_
+#define __WAVE_FME07_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../config.h"
+
+#include "NSF_Core.h"
+
 class CFME07Wave
 {
 public:
@@ -71,7 +81,7 @@ public:
 
 		while(ticks)
 		{
-			mn = min(nFreqCount,ticks);
+			mn = MIN(nFreqCount,ticks);
 			ticks -= mn;
 
 			nFreqCount -= mn;
@@ -107,3 +117,5 @@ public:
 		nMixL = nMixR = 0;
 	}
 };
+
+#endif

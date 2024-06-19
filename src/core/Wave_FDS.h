@@ -20,6 +20,16 @@
 //
 //  Wave_FDS.h
 
+#ifndef __WAVE_FDS_H_
+#define __WAVE_FDS_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../config.h"
+
+#include "NSF_Core.h"
+
 static const int ModulationTable[8] = {0,1,2,4,0,-4,-2,-1};
 
 class CFDSWave
@@ -94,11 +104,11 @@ public:
 		while(ticks)
 		{
 			mn = ticks;
-			if(bVolEnv_On)						mn = min(mn,nVolEnv_Count);
-			if(bSweepEnv_On)					mn = min(mn,nSweep_Count);
-			if(bLFO_On)							mn = (int)min(mn,(fLFO_Count + 1));
-			if(bMain_On)						mn = (int)min(mn,(fFreqCount + 1));
-			else if(bPopReducer && nPopOutput)	mn = min(mn,nPopCount);
+			if(bVolEnv_On)						mn = MIN(mn,nVolEnv_Count);
+			if(bSweepEnv_On)					mn = MIN(mn,nSweep_Count);
+			if(bLFO_On)							mn = (int)MIN(mn,(fLFO_Count + 1));
+			if(bMain_On)						mn = (int)MIN(mn,(fFreqCount + 1));
+			else if(bPopReducer && nPopOutput)	mn = MIN(mn,nPopCount);
 			ticks -= mn;
 
 			/*	Volume Envelope Unit	*/
@@ -224,3 +234,5 @@ public:
 		nMixL = nMixR = 0;
 	}
 };
+
+#endif

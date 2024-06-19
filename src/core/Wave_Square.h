@@ -21,6 +21,16 @@
 //  Wave_Square.h
 //
 
+#ifndef __WAVE_SQUARE_H_
+#define __WAVE_SQUARE_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../config.h"
+
+#include "NSF_Core.h"
+
 class CSquareWaves
 {
 public:
@@ -143,8 +153,8 @@ public:
 
 		while(ticks)
 		{
-			mn = min(nFreqCount[0],nFreqCount[1]);
-			mn = min(mn,ticks);
+			mn = MIN(nFreqCount[0],nFreqCount[1]);
+			mn = MIN(mn,ticks);
 			ticks -= mn;
 
 			nFreqCount[0] -= mn;
@@ -215,3 +225,5 @@ public:
 		nMixL = nMixR = 0;
 	}
 };
+
+#endif

@@ -22,6 +22,15 @@
 //
 //
 
+#ifndef __GENERAL_FILE_INFO_DLG_H_
+#define __GENERAL_FILE_INFO_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../dfc/DFC.h"
+#include "../NSF.h"
+
 class CGeneralFileInfoDlg : public CDDialog
 {
 public:
@@ -46,3 +55,5 @@ public:
 	CDStatic		m_Info;
 	CDButton		m_Convert;
 };
+
+#endif

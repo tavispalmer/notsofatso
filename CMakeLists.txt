@@ -10,7 +10,7 @@ macro(nsf_set_option var default type docstring)
 endmacro()
 
 nsf_set_option(NSF_BUILD_WINAMP TRUE BOOL "TRUE to build the Winamp plugin")
-nsf_set_option(NSF_BUILD_VLC TRUE BOOL "TRUE to build the VLC plugin")
+nsf_set_option(NSF_BUILD_VLC FALSE BOOL "TRUE to build the VLC plugin")
 
 set(DFC
     src/dfc/DFC.h
@@ -105,6 +105,16 @@ source_group("Source Files" FILES ${SOURCE_FILES_})
 
 source_group("" FILES Readme.txt)
 
+if(NSF_BUILD_VLC)
+    add_library(notsofatso_plugin SHARED
+        src/vlc/vlc_stream.cpp
+        src/vlc/vlc.cpp
+    )
+    target_include_directories(notsofatso_plugin PRIVATE lib/vlc/include)
+    target_link_directories(notsofatso_plugin PRIVATE .)
+    target_link_libraries(notsofatso_plugin vlccore)
+endif()
+
 if(NSF_BUILD_WINAMP)
     add_library(in_NotSoFatso SHARED
         ${DFC}
@@ -116,6 +126,5 @@ if(NSF_BUILD_WINAMP)
         ${SOURCE_FILES_}
         Readme.txt
     )
-    target_link_libraries(in_NotSoFatso comctl32)
+    target_link_libraries(in_NotSoFatso comdlg32 comctl32)
 endif()
-

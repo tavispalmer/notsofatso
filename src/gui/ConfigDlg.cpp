@@ -21,7 +21,10 @@
 //  ConfigDlg.cpp
 //
 
+#include "ConfigDlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CConfigDlg::OnInitDialog()
 {

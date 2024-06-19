@@ -22,6 +22,17 @@
 //
 //
 
+#ifndef __CONFIG_DLG_H_
+#define __CONFIG_DLG_H_
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#include "../dfc/DFC.h"
+
+class CNSF;
+struct NSF_ADVANCEDOPTIONS;
+
 class CConfigDlg : public CDDialog
 {
 public:
@@ -135,3 +146,5 @@ public:
 
 	CNSF*			pNSF;
 };
+
+#endif

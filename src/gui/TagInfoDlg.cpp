@@ -22,8 +22,10 @@
 //
 //
 
-#include "../NSF.h"
-#include <CommDlg.h>
+#include "TagInfoDlg.h"
+// #include <CommDlg.h>
+
+#include "../../resources/resource.h"
 
 void CTagInfoDlg::OnInitDialog()
 {

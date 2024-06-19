@@ -21,8 +21,6 @@
 //  DFC_Array.cpp
 //
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
 #include "DFC_Array.h"
 
 CDByteArray::CDByteArray()

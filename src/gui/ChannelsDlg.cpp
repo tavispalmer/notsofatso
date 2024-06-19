@@ -22,7 +22,10 @@
 //
 //
 
+#include "ChannelsDlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CChannelsDlg::OnInitDialog()
 {

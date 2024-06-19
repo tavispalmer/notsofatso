@@ -21,8 +21,10 @@
 //  TrackInfoDlg.cpp
 //
 
-
+#include "TrackInfoDlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 CTrackInfoDlg::CTrackInfoDlg() : CDDialog()
 {

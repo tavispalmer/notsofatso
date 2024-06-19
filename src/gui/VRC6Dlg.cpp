@@ -21,7 +21,10 @@
 //  VRC6Dlg.cpp
 //
 
+#include "VRC6Dlg.h"
 #include "../NSF.h"
+
+#include "../../resources/resource.h"
 
 void CVRC6Dlg::OnInitDialog()
 {

@@ -126,5 +126,6 @@ if(NSF_BUILD_WINAMP)
         ${SOURCE_FILES_}
         Readme.txt
     )
-    target_link_libraries(in_NotSoFatso comdlg32 comctl32)
+    # target_include_directories(in_NotSoFatso PRIVATE "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\km")
+    target_link_libraries(in_NotSoFatso comdlg32 comctl32 ntdll)
 endif()

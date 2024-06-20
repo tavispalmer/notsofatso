@@ -6,22 +6,22 @@
 #include "stream.h"
 
 // File implementation
-class LibcFile : public Read, public Write, public Seek {
+class File : public Read, public Seek {
 private:
     FILE *file;
-    LibcFile(FILE *file) :
+    File(FILE *file) :
         file(file) {}
 
 public:
-    static LibcFile open(const char *path) {
-        return LibcFile(fopen64(path, "rb"));
+    static File open(const char *path) {
+        FILE *file = fopen(path, "rb");
+        if (!file) {
+            throw std::exception();
+        }
+        return File(file);
     }
 
-    static LibcFile create(const char *path) {
-        return LibcFile(fopen64(path, "wb"));
-    }
-
-    virtual ~LibcFile() {
+    virtual ~File() {
         fclose(this->file);
     }
 
@@ -29,13 +29,9 @@ public:
         return fread(buf, 1, len, this->file);
     }
 
-    virtual size_t write(const uint8_t *buf, size_t len) {
-        return fwrite(buf, 1, len, this->file);
-    }
-
     virtual uint64_t seek(SeekFrom pos) {
         int whence;
-        _off64_t offset;
+        long offset;
         switch (pos.type) {
             case SeekFrom::_Start:
                 whence = SEEK_SET;
@@ -51,8 +47,8 @@ public:
                 break;
         }
 
-        fseeko64(this->file, offset, whence);
-        return ftello64(this->file);
+        fseek(this->file, offset, whence);
+        return ftell(this->file);
     }
 };
 

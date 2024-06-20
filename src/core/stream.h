@@ -42,11 +42,6 @@ public:
     virtual size_t read(uint8_t *buf, size_t len) = 0;
 };
 
-class Write {
-public:
-    virtual size_t write(const uint8_t *buf, size_t len) = 0;
-};
-
 class Seek {
 public:
     virtual uint64_t seek(SeekFrom pos) = 0;

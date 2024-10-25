@@ -27,7 +27,7 @@
 void CAboutDlg::OnInitDialog()
 {
 	CDDialog::OnInitDialog();
-	AFX_MAPMESSAGE(IDC_SLICKPRODUCTIONS,BN_CLICKED,OnSlickProductions);
+	AFX_MAPMESSAGE(IDC_SLICKPRODUCTIONS,BN_CLICKED,&CAboutDlg::OnSlickProductions);
 }
 
 void CAboutDlg::OnSlickProductions()

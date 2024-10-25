@@ -92,7 +92,7 @@ void CMainControlDlg::OnInitDialog()
 	m_tab.InsertItem(9,"FME-07");
 	m_tab.InsertItem(10,"About");
 
-	AFX_MAPNOTIFY(IDC_TAB,TCN_SELCHANGE,OnSelChangeTab);
+	AFX_MAPNOTIFY(IDC_TAB,TCN_SELCHANGE,&CMainControlDlg::OnSelChangeTab);
 }
 
 void CMainControlDlg::OpenAsAbout()

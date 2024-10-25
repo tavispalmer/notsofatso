@@ -83,9 +83,9 @@ void CFileInfoDlg::OnInitDialog()
 	m_tag.MoveWindow(&rc);
 
 
-	AFX_MAPNOTIFY(IDC_TAB,TCN_SELCHANGE,OnTab);
-	AFX_MAPMESSAGE(IDC_SAVE,BN_CLICKED,OnSave);
-	AFX_MAPMESSAGE(IDC_SAVECLOSE,BN_CLICKED,OnSaveClose);
+	AFX_MAPNOTIFY(IDC_TAB,TCN_SELCHANGE,&CFileInfoDlg::OnTab);
+	AFX_MAPMESSAGE(IDC_SAVE,BN_CLICKED,&CFileInfoDlg::OnSave);
+	AFX_MAPMESSAGE(IDC_SAVECLOSE,BN_CLICKED,&CFileInfoDlg::OnSaveClose);
 
 	m_tab.InsertItem(0,"File Info");
 	m_tab.InsertItem(1,"Tag Info");

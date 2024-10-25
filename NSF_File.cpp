@@ -505,7 +505,7 @@ int CNSFFile::SaveFile_NSFE(FILE* file)
 		fwrite(&nChunkSize,4,1,file);
 		fwrite(&nChunkType,4,1,file);
 
-		for(i = 0; i < nTrackCount; i++)
+		for(int i = 0; i < nTrackCount; i++)
 		{
 			if(szTrackLabels[i])
 				fwrite(szTrackLabels[i],lstrlen(szTrackLabels[i]) + 1,1,file);

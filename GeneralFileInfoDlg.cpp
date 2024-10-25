@@ -41,9 +41,9 @@ void CGeneralFileInfoDlg::OnInitDialog()
 	m_Convert.SetWindowText("Convert to NSF" + (CDString)(pFile->bIsExtended ? "" : "E"));
 	Refresh();
 
-	AFX_MAPMESSAGE(IDC_CONVERT,BN_CLICKED,OnConvert);
-	AFX_MAPMESSAGE(IDC_WINAMPSHADOW,BN_CLICKED,OnShadowWinamp);
-	AFX_MAPMESSAGE(IDC_FILESHADOW,BN_CLICKED,OnShadowFile);
+	AFX_MAPMESSAGE(IDC_CONVERT,BN_CLICKED,&CGeneralFileInfoDlg::OnConvert);
+	AFX_MAPMESSAGE(IDC_WINAMPSHADOW,BN_CLICKED,&CGeneralFileInfoDlg::OnShadowWinamp);
+	AFX_MAPMESSAGE(IDC_FILESHADOW,BN_CLICKED,&CGeneralFileInfoDlg::OnShadowFile);
 }
 
 void CGeneralFileInfoDlg::Refresh()
@@ -98,7 +98,7 @@ void CGeneralFileInfoDlg::OnConvert()
 	ofn.Flags =					OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT;
 	ofn.nFileOffset =			0xFFFF;
 	ofn.nFileExtension =		0xFFFF;
-	for(i = lstrlen(filename) - 1; i >= 0; i--)
+	for(int i = lstrlen(filename) - 1; i >= 0; i--)
 	{
 		if((filename[i] == '.') && (ofn.nFileExtension == 0xFFFF))
 		{
@@ -184,7 +184,7 @@ void CGeneralFileInfoDlg::OnShadowFile()
 	ofn.Flags =					OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT;
 	ofn.nFileOffset =			0xFFFF;
 	ofn.nFileExtension =		0xFFFF;
-	for(i = lstrlen(filename) - 1; i >= 0; i--)
+	for(int i = lstrlen(filename) - 1; i >= 0; i--)
 	{
 		if((filename[i] == '.') && (ofn.nFileExtension == 0xFFFF))
 		{
@@ -218,7 +218,7 @@ void CGeneralFileInfoDlg::OnShadowFile()
 
 	if(pNSF->bUsePlaylists && pFile->pPlaylist)
 	{
-		for(i = 0; i < pFile->nPlaylistSize; i++)
+		for(int i = 0; i < pFile->nPlaylistSize; i++)
 		{
 			sprintf(filename,"nsf://%d:%s\r\n",pFile->pPlaylist[i],szPath);
 			fwrite(filename,1,lstrlen(filename),file);
@@ -226,7 +226,7 @@ void CGeneralFileInfoDlg::OnShadowFile()
 	}
 	else
 	{
-		for(i = 0; i < pFile->nTrackCount; i++)
+		for(int i = 0; i < pFile->nTrackCount; i++)
 		{
 			sprintf(filename,"nsf://%d:%s\r\n",i,szPath);
 			fwrite(filename,1,lstrlen(filename),file);

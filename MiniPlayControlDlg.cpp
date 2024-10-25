@@ -42,10 +42,10 @@ void CMiniPlayControlDlg::OnInitDialog()
 	m_Slider.AttachToControl(hWnd,IDC_PLAYSLIDER);
 	m_TrackLabel.AttachToControl(hWnd,IDC_TRACKLABEL);
 
-	AFX_MAPMESSAGE(IDC_PLAY,BN_CLICKED,OnPlay);
-	AFX_MAPMESSAGE(IDC_NEXT,BN_CLICKED,OnNext);
-	AFX_MAPMESSAGE(IDC_PREV,BN_CLICKED,OnPrev);
-	AFX_MAPMESSAGE(IDC_CONFIG,BN_CLICKED,OnConfig);
+	AFX_MAPMESSAGE(IDC_PLAY,BN_CLICKED,&CMiniPlayControlDlg::OnPlay);
+	AFX_MAPMESSAGE(IDC_NEXT,BN_CLICKED,&CMiniPlayControlDlg::OnNext);
+	AFX_MAPMESSAGE(IDC_PREV,BN_CLICKED,&CMiniPlayControlDlg::OnPrev);
+	AFX_MAPMESSAGE(IDC_CONFIG,BN_CLICKED,&CMiniPlayControlDlg::OnConfig);
 }
 
 void CMiniPlayControlDlg::PutWindow(int x, int y)

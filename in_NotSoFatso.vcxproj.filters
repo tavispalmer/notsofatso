@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{197b59ea-8e73-4be7-a5e5-62a4f9322274}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{bcdfa30f-1d24-4c00-b3fb-504e74aba840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{135b376d-eb40-4275-b03d-5206a54066ca}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{daebda9e-50a0-4c71-974a-74d493600626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{9cd1ccab-229e-4a7c-a8eb-edc4502cfe44}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="DFC">
+      <UniqueIdentifier>{ee002080-83e7-4304-97e2-765e1cd383ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NSF Core">
+      <UniqueIdentifier>{f1453205-afe4-47b1-bc61-ed6f80937adf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NSF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Winamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ChannelsDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FME07Dlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="FileInfoDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralFileInfoDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MMC5Dlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainControlDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniPlayControlDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="N106Dlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayControlDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaylistDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TagInfoDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackInfoDlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="VRC6Dlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="VRC7Dlg.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="DFC_Array.cpp">
+      <Filter>DFC</Filter>
+    </ClCompile>
+    <ClCompile Include="DFC_Dialog.cpp">
+      <Filter>DFC</Filter>
+    </ClCompile>
+    <ClCompile Include="DFC_String.cpp">
+      <Filter>DFC</Filter>
+    </ClCompile>
+    <ClCompile Include="DFC_Wnd.cpp">
+      <Filter>DFC</Filter>
+    </ClCompile>
+    <ClCompile Include="NSF_6502.cpp">
+      <Filter>NSF Core</Filter>
+    </ClCompile>
+    <ClCompile Include="NSF_Core.cpp">
+      <Filter>NSF Core</Filter>
+    </ClCompile>
+    <ClCompile Include="NSF_File.cpp">
+      <Filter>NSF Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Wave_VRC7.cpp">
+      <Filter>NSF Core</Filter>
+    </ClCompile>
+    <ClCompile Include="fmopl.c">
+      <Filter>NSF Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NSF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Winamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ChannelsDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FME07Dlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInfoDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralFileInfoDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MMC5Dlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainControlDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniPlayControlDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="N106Dlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayControlDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaylistDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TagInfoDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackInfoDlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VRC6Dlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VRC7Dlg.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DFC.h">
+      <Filter>DFC</Filter>
+    </ClInclude>
+    <ClInclude Include="DFC_Array.h">
+      <Filter>DFC</Filter>
+    </ClInclude>
+    <ClInclude Include="DFC_String.h">
+      <Filter>DFC</Filter>
+    </ClInclude>
+    <ClInclude Include="NSF_Core.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NSF_File.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_FDS.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_FME07.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_MMC5.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_N106.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_Square.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_TND.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave_VRC6.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+    <ClInclude Include="fmopl.h">
+      <Filter>NSF Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="NotSoLogo.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wannabewinamp.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="NotsoFatso.def">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

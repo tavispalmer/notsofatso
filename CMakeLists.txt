@@ -99,7 +99,7 @@ set(SOURCE_FILES_GUI
 
 source_group("Source Files/GUI" FILES ${SOURCE_FILES_GUI})
 
-add_library(in_NotSoFatso
+add_library(in_NotSoFatso SHARED
     ${DFC}
     ${HEADER_FILES}
     ${HEADER_FILES_GUI}
@@ -109,3 +109,5 @@ add_library(in_NotSoFatso
     ${SOURCE_FILES_GUI}
     Readme.txt
 )
+
+target_link_libraries(in_NotSoFatso PRIVATE comctl32)

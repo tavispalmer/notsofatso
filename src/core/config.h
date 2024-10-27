@@ -45,7 +45,7 @@ typedef const CHAR *LPCSTR;
 __forceinline void Sleep(DWORD dwMilliseconds) {
     // rust Thread::sleep()
     unsigned long secs = dwMilliseconds / 1000;
-    long nsecs = dwMilliseconds * 1000000;
+    long nsecs = (dwMilliseconds % 1000) * 1000000;
 
     while (secs > 0 || nsecs > 0) {
         struct timespec ts = {

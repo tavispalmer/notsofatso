@@ -120,7 +120,12 @@ target_link_directories(nsf_plugin PRIVATE "C:/Program Files/VideoLAN/VLC")
 target_link_libraries(nsf_plugin PRIVATE vlccore)
 # on windows, we need to statically link these libraries
 target_link_libraries(nsf_plugin PRIVATE libstdc++.a libgcc_eh.a libwinpthread.a)
+elseif(CMAKE_HOST_APPLE)
+# assuming vlc is installed system-wide
+target_link_directories(nsf_plugin PRIVATE /Applications/VLC.app/Contents/MacOS/lib)
+target_link_libraries(nsf_plugin PRIVATE vlccore)
 elseif(CMAKE_HOST_LINUX)
+# workaround for fedora (not working for some reason?)
 target_link_libraries(nsf_plugin PRIVATE /usr/lib64/libvlccore.so.9)
 endif()
 

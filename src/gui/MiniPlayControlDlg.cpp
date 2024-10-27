@@ -21,7 +21,7 @@
 //  MiniPlayControlDlg.cpp
 //
 
-#include "NSF.h"
+#include "../NSF.h"
 
 CMiniPlayControlDlg::CMiniPlayControlDlg() : CDDialog()
 {

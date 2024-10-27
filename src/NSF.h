@@ -28,9 +28,9 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <stdio.h>
-#include "resource.h"
+#include "../resource/resource.h"
 
-#include "DFC.h"
+#include "dfc/DFC.h"
 
 #include "NSF_File.h"
 #include "NSF_Core.h"

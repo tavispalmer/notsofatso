@@ -21,7 +21,7 @@
 //  ConfigDlg.cpp
 //
 
-#include "NSF.h"
+#include "../NSF.h"
 
 void CConfigDlg::OnInitDialog()
 {

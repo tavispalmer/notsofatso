@@ -21,7 +21,7 @@
 //  N106Dlg.cpp
 //
 
-#include "NSF.h"
+#include "../NSF.h"
 
 void CVRC7Dlg::OnInitDialog()
 {

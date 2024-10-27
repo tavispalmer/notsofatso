@@ -22,7 +22,7 @@
 //
 
 
-#include "NSF.h"
+#include "../NSF.h"
 
 CTrackInfoDlg::CTrackInfoDlg() : CDDialog()
 {

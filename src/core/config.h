@@ -44,12 +44,12 @@ typedef const CHAR *LPCSTR;
 
 __forceinline void Sleep(DWORD dwMilliseconds) {
     // rust Thread::sleep()
-    unsigned long secs = dwMilliseconds / 1000;
-    long nsecs = (dwMilliseconds % 1000) * 1000000;
+    unsigned long secs = (unsigned long)dwMilliseconds / 1000UL;
+    long nsecs = ((long)dwMilliseconds % 1000L) * 1000000L;
 
     while (secs > 0 || nsecs > 0) {
         struct timespec ts = {
-            .tv_sec = (time_t) MIN(LONG_MAX, secs),
+            .tv_sec  = MIN(LONG_MAX, secs),
             .tv_nsec = nsecs,
         };
         secs -= ts.tv_sec;

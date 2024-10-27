@@ -35,6 +35,8 @@
 		- Disch
 */
 
+#include "config.h"
+
 
 /*	Section added to get this linkable from a C++ environment  -Disch		*/
 #ifdef __cplusplus

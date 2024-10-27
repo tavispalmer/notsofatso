@@ -21,6 +21,8 @@
 //  NSF_Core.h
 //
 
+#include "config.h"
+
 union TWIN
 {
 	WORD						W;

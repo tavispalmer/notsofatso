@@ -22,6 +22,7 @@
 //
 //
 
+#include "config.h"
 #include "stream.hpp"
 
 #define					HEADERTYPE_NESM			'MSEN'

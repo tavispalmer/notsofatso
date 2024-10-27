@@ -25,8 +25,10 @@
 #include "config.h"
 
 
+#ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#endif
 #include <stdio.h>
 #include "NSF_Core.h"
 #include "NSF_File.h"

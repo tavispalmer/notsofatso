@@ -114,8 +114,14 @@ source_group("Source Files/GUI" FILES ${SOURCE_FILES_GUI})
 
 add_library(nsf_plugin SHARED src/vlc.cpp ${NSF_CORE})
 target_include_directories(nsf_plugin PRIVATE vlc/include)
+
+if(CMAKE_HOST_WIN32)
 target_link_directories(nsf_plugin PRIVATE "C:/Program Files/VideoLAN/VLC")
 target_link_libraries(nsf_plugin PRIVATE vlccore)
-
 # on windows, we need to statically link these libraries
 target_link_libraries(nsf_plugin PRIVATE libstdc++.a libgcc_eh.a libwinpthread.a)
+elseif(CMAKE_HOST_LINUX)
+target_link_libraries(nsf_plugin PRIVATE /usr/lib64/libvlccore.so.9)
+endif()
+
+

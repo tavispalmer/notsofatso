@@ -22,6 +22,8 @@
 //
 //
 
+#include "config.h"
+
 class CFME07Wave
 {
 public:
@@ -71,7 +73,7 @@ public:
 
 		while(ticks)
 		{
-			mn = min(nFreqCount,ticks);
+			mn = MIN(nFreqCount,ticks);
 			ticks -= mn;
 
 			nFreqCount -= mn;

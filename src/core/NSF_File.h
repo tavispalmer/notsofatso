@@ -22,6 +22,8 @@
 //
 //
 
+#include "stream.hpp"
+
 #define					HEADERTYPE_NESM			'MSEN'
 #define					HEADERTYPE_NSFE			'EFSN'
 
@@ -80,12 +82,13 @@ public:
 														//  (like track times, game title, Author, etc)
 														//If you're loading an NSF with intention to play it, needdata
 														//  must be true
+	int				LoadStream(Stream *stream,BYTE needdata,BYTE ignoreversion);
 	int				SaveFile(LPCSTR path);				//Saves the NSF to a file... including any changes you made (like to track times, etc)
 	void			Destroy();							//Cleans up memory
 
 protected:
-	int		LoadFile_NESM(FILE* file,BYTE needdata,BYTE ignoreversion);	//these functions are used internally and should not be called
-	int		LoadFile_NSFE(FILE* file,BYTE needdata);
+	int		LoadStream_NESM(Stream *stream,BYTE needdata,BYTE ignoreversion);	//these functions are used internally and should not be called
+	int		LoadStream_NSFE(Stream *stream,BYTE needdata);
 
 	int		SaveFile_NESM(FILE* file);
 	int		SaveFile_NSFE(FILE* file);

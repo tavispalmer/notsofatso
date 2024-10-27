@@ -23,6 +23,8 @@
 //    Because of inter-dependencies between channel output, the Triangle,
 //  Noise, and DMC are all combined here in this class.
 
+#include "config.h"
+
 class CTNDWaves
 {
 public:
@@ -189,10 +191,10 @@ public:
 		{
 			mn = nNoiseFreqCount;
 			if(nTriFreqTimer.W > 8)
-				mn = min(mn,nTriFreqCount);
+				mn = MIN(mn,nTriFreqCount);
 			if(bDMCActive)
-				mn = min(mn,nDMCFreqCount);
-			mn = min(mn,ticks);
+				mn = MIN(mn,nDMCFreqCount);
+			mn = MIN(mn,ticks);
 			ticks -= mn;
 
 			nNoiseFreqCount -= mn;

@@ -99,15 +99,23 @@ set(SOURCE_FILES_GUI
 
 source_group("Source Files/GUI" FILES ${SOURCE_FILES_GUI})
 
-add_library(in_NotSoFatso SHARED
-    ${DFC}
-    ${HEADER_FILES}
-    ${HEADER_FILES_GUI}
-    ${NSF_CORE}
-    ${RESOURCE_FILES}
-    ${SOURCE_FILES_}
-    ${SOURCE_FILES_GUI}
-    Readme.txt
-)
+# add_library(in_NotSoFatso SHARED
+#     ${DFC}
+#     ${HEADER_FILES}
+#     ${HEADER_FILES_GUI}
+#     ${NSF_CORE}
+#     ${RESOURCE_FILES}
+#     ${SOURCE_FILES_}
+#     ${SOURCE_FILES_GUI}
+#     Readme.txt
+# )
 
-target_link_libraries(in_NotSoFatso PRIVATE comctl32)
+# target_link_libraries(in_NotSoFatso PRIVATE comctl32)
+
+add_library(nsf_plugin SHARED src/vlc.cpp ${NSF_CORE})
+target_include_directories(nsf_plugin PRIVATE vlc/include)
+target_link_directories(nsf_plugin PRIVATE "C:/Program Files/VideoLAN/VLC")
+target_link_libraries(nsf_plugin PRIVATE vlccore)
+
+# on windows, we need to statically link these libraries
+target_link_libraries(nsf_plugin PRIVATE libstdc++.a libgcc_eh.a libwinpthread.a)

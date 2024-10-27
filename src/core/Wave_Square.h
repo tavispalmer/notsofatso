@@ -21,6 +21,8 @@
 //  Wave_Square.h
 //
 
+#include "config.h"
+
 class CSquareWaves
 {
 public:
@@ -143,8 +145,8 @@ public:
 
 		while(ticks)
 		{
-			mn = min(nFreqCount[0],nFreqCount[1]);
-			mn = min(mn,ticks);
+			mn = MIN(nFreqCount[0],nFreqCount[1]);
+			mn = MIN(mn,ticks);
 			ticks -= mn;
 
 			nFreqCount[0] -= mn;

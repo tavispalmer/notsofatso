@@ -23,6 +23,8 @@
 //    I love this chip!  Although it's not as easy as the others to emulate... but it sure sounds nice.
 //
 
+#include "config.h"
+
 
 class CN106Wave
 {
@@ -108,7 +110,7 @@ public:
 			while(usetick)
 			{
 				mn = (int)ceil(fFreqCount[i]);
-				mn = min(mn,usetick);
+				mn = MIN(mn,usetick);
 
 				usetick -= mn;
 				if(mix[i])

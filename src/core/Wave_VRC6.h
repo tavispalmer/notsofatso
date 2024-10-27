@@ -21,6 +21,8 @@
 //  Wave_VRC6.h
 //
 
+#include "config.h"
+
 class CVRC6PulseWave
 {
 public:
@@ -73,7 +75,7 @@ public:
 
 		while(ticks)
 		{
-			mn = min(nFreqCount,ticks);
+			mn = MIN(nFreqCount,ticks);
 			ticks -= mn;
 
 			nFreqCount -= mn;
@@ -168,7 +170,7 @@ public:
 
 		while(ticks)
 		{
-			mn = min(nFreqCount,ticks);
+			mn = MIN(nFreqCount,ticks);
 			ticks -= mn;
 
 			nFreqCount -= mn;

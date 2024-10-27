@@ -29,7 +29,6 @@
 #define __forceinline extern __inline__ __attribute__((__always_inline__,__gnu_inline__))
 #endif
 #define __fastcall __attribute__((__fastcall__))
-#endif
 
 #define __int64 long long
 
@@ -66,5 +65,7 @@ __forceinline void Sleep(DWORD dwMilliseconds) {
 __forceinline int lstrlen(LPCSTR lpString) {
     return strlen(lpString);
 }
+
+#endif
 
 #endif

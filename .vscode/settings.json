@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "vlc_common.h": "c",
-        "random": "cpp"
-    }
-}

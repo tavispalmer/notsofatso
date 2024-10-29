@@ -65,7 +65,8 @@ public:
 };
 
 struct demux_sys_t {
-    CNSFCore *nsf;
+    CNSFCore *core;
+    CNSFFile *file;
 
     es_out_id_t *es;
     date_t pts;
@@ -101,22 +102,22 @@ static int Open(vlc_object_t *obj) {
     
     VlcStream stream(demux->s);
 
-    CNSFFile file;
-    file.LoadStream(&stream, 1, 0);
+    sys->file = new CNSFFile;
+    sys->file->LoadStream(&stream, 1, 0);
 
-    sys->nsf = new CNSFCore();
-    sys->nsf->Initialize();
-    sys->nsf->SetPlaybackOptions(48000,2);
-    sys->nsf->LoadNSF(&file);
-    sys->nsf->SetPlaybackSpeed(0);
+    sys->core = new CNSFCore;
+    sys->core->Initialize();
+    sys->core->SetPlaybackOptions(48000,2);
+    sys->core->LoadNSF(sys->file);
+    sys->core->SetPlaybackSpeed(0);
 
-    sys->nsf->SetChannelOptions(0, 1, 255, -45, 1);
-    sys->nsf->SetChannelOptions(1, 1, 255, 45, 1);
-    sys->nsf->SetChannelOptions(2, 1, 255, 0, 0);
-    sys->nsf->SetChannelOptions(3, 1, 255, 0, 0);
-    sys->nsf->SetChannelOptions(4, 1, 255, 0, 0);
+    sys->core->SetChannelOptions(0, 1, 255, -45, 1);
+    sys->core->SetChannelOptions(1, 1, 255, 45, 1);
+    sys->core->SetChannelOptions(2, 1, 255, 0, 0);
+    sys->core->SetChannelOptions(3, 1, 255, 0, 0);
+    sys->core->SetChannelOptions(4, 1, 255, 0, 0);
 
-    sys->nsf->SetTrack(0);
+    sys->core->SetTrack(0);
 
     es_format_t fmt;
     es_format_Init(&fmt, AUDIO_ES, VLC_CODEC_S16N);
@@ -143,7 +144,8 @@ static void Close(vlc_object_t *obj) {
     demux_t *demux = (demux_t *)obj;
     demux_sys_t *sys = demux->p_sys;
 
-    delete sys->nsf;
+    delete sys->core;
+    delete sys->file;
     free(sys);
 }
 
@@ -154,7 +156,7 @@ static int Demux(demux_t *demux) {
     if (unlikely(block == NULL))
         return 0;
 
-    sys->nsf->GetSamples(block->p_buffer, 2 * 2 * 48000);
+    sys->core->GetSamples(block->p_buffer, 2 * 2 * 48000);
     
     block->i_pts = block->i_dts = VLC_TICK_0 + date_Get(&sys->pts);
     es_out_SetPCR(demux->out, block->i_pts);
@@ -164,6 +166,81 @@ static int Demux(demux_t *demux) {
 }
 
 static int Control(demux_t *demux, int query, va_list args) {
+    demux_sys_t *sys = demux->p_sys;
+
+    switch (query) {
+        case DEMUX_CAN_SEEK:
+            *va_arg (args, bool *) = true;
+            return VLC_SUCCESS;
+        
+        case DEMUX_GET_POSITION: {
+            double *pos = va_arg (args, double *);
+
+            int64_t song = 120000, fade = 2000;
+            if (sys->file->pTrackTime) {
+                if (sys->file->pTrackTime[0] >= 0) {
+                    song = sys->file->pTrackTime[0];
+                }
+            }
+            if (sys->file->pTrackFade) {
+                if (sys->file->pTrackFade[0] >= 0) {
+                    fade = sys->file->pTrackFade[0];
+                }
+            }
+
+            *pos = (double)sys->core->GetWrittenTime(0) / (double)(song + fade);
+
+            return VLC_SUCCESS;
+        }
+
+        case DEMUX_SET_POSITION: {
+            double pos = va_arg (args, double);
+
+            int64_t song = 120000, fade = 2000;
+            if (sys->file->pTrackTime) {
+                if (sys->file->pTrackTime[0] >= 0) {
+                    song = sys->file->pTrackTime[0];
+                }
+            }
+            if (sys->file->pTrackFade) {
+                if (sys->file->pTrackFade[0] >= 0) {
+                    fade = sys->file->pTrackFade[0];
+                }
+            }
+            sys->core->SetWrittenTime((unsigned int)(pos * (song + fade)), 0);
+            return VLC_SUCCESS;
+        }
+
+        case DEMUX_GET_LENGTH: {
+            int64_t *v = va_arg (args, int64_t *);
+
+            int64_t song = 120000, fade = 2000;
+            if (sys->file->pTrackTime) {
+                if (sys->file->pTrackTime[0] >= 0) {
+                    song = sys->file->pTrackTime[0];
+                }
+            }
+            if (sys->file->pTrackFade) {
+                if (sys->file->pTrackFade[0] >= 0) {
+                    fade = sys->file->pTrackFade[0];
+                }
+            }
+            *v = (song + fade) * 1000LL;
+            return VLC_SUCCESS;
+        }
+
+        case DEMUX_GET_TIME: {
+            int64_t *v = va_arg (args, int64_t *);
+            *v = sys->core->GetWrittenTime(0) * 1000LL;
+            return VLC_SUCCESS;
+        }
+
+        case DEMUX_SET_TIME: {
+            int64_t v = va_arg (args, int64_t) / 1000;
+            sys->core->SetWrittenTime(v,0);
+            return VLC_SUCCESS;
+        }
+    }
     return VLC_EGENERIC;
 }
 

@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(in_NotSoFatso VERSION 0.1.0 LANGUAGES C CXX)
 
+if(NOT DEFINED NSF_BUILD_CORE)
+    set(NSF_BUILD_CORE ON)
+endif()
+
+if(NOT DEFINED NSF_BUILD_VLC)
+    set(NSF_BUILD_VLC OFF)
+endif()
+
 set(DFC
     src/dfc/DFC.h
     src/dfc/DFC_Array.cpp
@@ -112,21 +120,25 @@ source_group("Source Files/GUI" FILES ${SOURCE_FILES_GUI})
 
 # target_link_libraries(in_NotSoFatso PRIVATE comctl32)
 
-add_library(nsf_plugin SHARED src/vlc.cpp ${NSF_CORE})
-target_include_directories(nsf_plugin PRIVATE vlc/include)
-
-if(CMAKE_HOST_WIN32)
-target_link_directories(nsf_plugin PRIVATE "C:/Program Files/VideoLAN/VLC")
-target_link_libraries(nsf_plugin PRIVATE vlccore)
-# on windows, we need to statically link these libraries
-target_link_libraries(nsf_plugin PRIVATE libstdc++.a libgcc_eh.a libwinpthread.a)
-elseif(CMAKE_HOST_APPLE)
-# assuming vlc is installed system-wide
-target_link_directories(nsf_plugin PRIVATE /Applications/VLC.app/Contents/MacOS/lib)
-target_link_libraries(nsf_plugin PRIVATE vlccore)
-elseif(CMAKE_HOST_LINUX)
-# workaround for fedora (not working for some reason?)
-target_link_libraries(nsf_plugin PRIVATE /usr/lib64/libvlccore.so.9)
+if(NSF_BUILD_CORE)
+    add_library(nsf_core ${NSF_CORE})
 endif()
 
+if(NSF_BUILD_VLC)
+    add_library(nsf_plugin SHARED src/vlc.cpp ${NSF_CORE})
+    target_include_directories(nsf_plugin PRIVATE vlc/include)
 
+    if(CMAKE_HOST_WIN32)
+    target_link_directories(nsf_plugin PRIVATE "C:/Program Files/VideoLAN/VLC")
+    target_link_libraries(nsf_plugin PRIVATE vlccore)
+    # on windows, we need to statically link these libraries
+    target_link_libraries(nsf_plugin PRIVATE libstdc++.a libgcc_eh.a libwinpthread.a)
+    elseif(CMAKE_HOST_APPLE)
+    # assuming vlc is installed system-wide
+    target_link_directories(nsf_plugin PRIVATE /Applications/VLC.app/Contents/MacOS/lib)
+    target_link_libraries(nsf_plugin PRIVATE vlccore)
+    elseif(CMAKE_HOST_LINUX)
+    # workaround for fedora (not working for some reason?)
+    target_link_libraries(nsf_plugin PRIVATE /usr/lib64/libvlccore.so.9)
+    endif()
+endif()

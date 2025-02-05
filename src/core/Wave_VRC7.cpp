@@ -19,15 +19,15 @@
 
 /************************************************************************/
 /* NOTICE!!!!!!!!!!!!
-/*
-/*		Most of this code was copy/pasted from FCEUltra's source.  I only made
-/*	minor adjustments to add volume/pan control, and to get things working with
-/*	the way I have NotSo set up.   Credit for most of this code goes to
-/*  Xodnizel and Quietust.
-/*
-/*		Thanks to both of you guys!  ^_^
-/*
-/************************************************************************/
+ *
+ *		Most of this code was copy/pasted from FCEUltra's source.  I only made
+ *	minor adjustments to add volume/pan control, and to get things working with
+ *	the way I have NotSo set up.   Credit for most of this code goes to
+ *  Xodnizel and Quietust.
+ *
+ *		Thanks to both of you guys!  ^_^
+ *
+ ************************************************************************/
 
 
 //////////////////////////////////////////////////////////////////////////

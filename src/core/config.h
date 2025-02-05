@@ -22,13 +22,21 @@
 // nanosleep
 #include <time.h>
 
+// don't use register
+#define register
+
 // windows attributes
 #ifdef __cplusplus
 #define __forceinline inline __attribute__((__always_inline__))
 #else
 #define __forceinline extern __inline__ __attribute__((__always_inline__,__gnu_inline__))
 #endif
+
+#ifdef __i686__
 #define __fastcall __attribute__((__fastcall__))
+#else
+#define __fastcall
+#endif
 
 #define __int64 long long
 
@@ -44,19 +52,19 @@ typedef const CHAR *LPCSTR;
 
 __forceinline void Sleep(DWORD dwMilliseconds) {
     // rust Thread::sleep()
-    unsigned long secs = (unsigned long)dwMilliseconds / 1000UL;
+    long secs = dwMilliseconds / 1000U;
     long nsecs = ((long)dwMilliseconds % 1000L) * 1000000L;
 
     while (secs > 0 || nsecs > 0) {
         struct timespec ts = {
-            .tv_sec  = MIN(LONG_MAX, secs),
+            .tv_sec  = secs,
             .tv_nsec = nsecs,
         };
-        secs -= ts.tv_sec;
         if (nanosleep(&ts, &ts) == -1) {
-            secs += ts.tv_sec;
+            secs = ts.tv_sec;
             nsecs = ts.tv_nsec;
         } else {
+            secs = 0;
             nsecs = 0;
         }
     }

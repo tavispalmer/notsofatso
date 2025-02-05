@@ -41,7 +41,7 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #define OSD_CPU_H				//defined here to prevent a few typedefs from being redefined in fmopl.h
-#include <Windows.h>
+#include <windows.h>
 #endif
 #include "NSF_Core.h"
 #include "fmopl.h"

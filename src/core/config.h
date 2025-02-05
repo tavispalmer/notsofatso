@@ -1,6 +1,11 @@
 #ifndef __CONFIG_H_
 #define __CONFIG_H_
 
+// don't use register
+#ifndef _MSC_VER
+#define register
+#endif
+
 // macros for min and max
 #ifdef _WIN32
 #ifdef _MSC_VER
@@ -21,9 +26,6 @@
 #include <sys/param.h>
 // nanosleep
 #include <time.h>
-
-// don't use register
-#define register
 
 // windows attributes
 #ifdef __cplusplus

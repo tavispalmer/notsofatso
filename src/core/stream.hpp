@@ -12,6 +12,7 @@ typedef long long ssize_t;
 typedef int off_t;
 typedef int ssize_t;
 #endif
+#endif
 
 class Stream {
 public:

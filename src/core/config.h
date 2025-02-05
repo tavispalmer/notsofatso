@@ -48,23 +48,11 @@ typedef char CHAR;
 typedef const CHAR *LPCSTR;
 
 __forceinline void Sleep(DWORD dwMilliseconds) {
-    // rust Thread::sleep()
-    long secs = dwMilliseconds / 1000U;
-    long nsecs = ((long)dwMilliseconds % 1000L) * 1000000L;
-
-    while (secs > 0 || nsecs > 0) {
-        struct timespec ts = {
-            .tv_sec  = secs,
-            .tv_nsec = nsecs,
-        };
-        if (nanosleep(&ts, &ts) == -1) {
-            secs = ts.tv_sec;
-            nsecs = ts.tv_nsec;
-        } else {
-            secs = 0;
-            nsecs = 0;
-        }
-    }
+    struct timespec ts = {
+        .tv_sec  = (time_t)(dwMilliseconds / 1000U),
+        .tv_nsec = (long)(dwMilliseconds % 1000U) * 1000000L,
+    };
+    while (nanosleep(&ts, &ts) == -1);
 }
 
 __forceinline int lstrlen(LPCSTR lpString) {

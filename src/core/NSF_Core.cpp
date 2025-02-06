@@ -448,7 +448,7 @@ void __fastcall CNSFCore::WriteMemory_pAPU(WORD a,BYTE v)
 
 		case 0x4088:
 			if(mWave_FDS.bLFO_Enabled)	break;
-			register int i;
+			int i;
 			for(i = 0; i < 62; i++)
 				mWave_FDS.nLFO_Table[i] = mWave_FDS.nLFO_Table[i + 2];
 			mWave_FDS.nLFO_Table[62] = mWave_FDS.nLFO_Table[63] = v & 7;

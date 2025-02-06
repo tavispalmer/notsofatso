@@ -183,8 +183,8 @@ public:
 
 	__forceinline int DoTicks(int ticks)		//returns number of burned cycles (burned by DMC's DMA)
 	{
-		register int mn;
-		register int out;
+		int mn;
+		int out;
 		int burnedcycles = 0;
 
 		while(ticks)

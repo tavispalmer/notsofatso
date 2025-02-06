@@ -105,7 +105,7 @@ public:
 		}
 	}
 
-	__forceinline void CheckSweepForcedSilence(register int i)
+	__forceinline void CheckSweepForcedSilence(int i)
 	{
 		if(nFreqTimer[i].W < 8){	bSweepForceSilence[i] = 1; return; }
 		if(!bSweepMode[i] && (( nFreqTimer[i].W + (nFreqTimer[i].W >> nSweepShift[i])) >= 0x0800))
@@ -140,8 +140,8 @@ public:
 
 	__forceinline void DoTicks(int ticks)
 	{
-		register int mn;
-		register BYTE out;
+		int mn;
+		BYTE out;
 
 		while(ticks)
 		{

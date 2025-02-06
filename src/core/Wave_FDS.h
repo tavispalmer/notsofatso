@@ -143,7 +143,7 @@ public:
 				while(nSweepBias >  63)	nSweepBias -= 128;
 				while(nSweepBias < -64)	nSweepBias += 128;
 
-				register int temp = nSweepBias * nSweep_Gain;
+				int temp = nSweepBias * nSweep_Gain;
 				if(temp & 0x0F)
 				{
 					temp /= 16;

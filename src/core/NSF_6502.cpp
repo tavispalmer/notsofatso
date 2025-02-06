@@ -367,13 +367,13 @@ UINT CNSFCore::Emulate6502(UINT runto)
 	if(bCPUJammed == 1)
 		return 0;
 
-	register TWIN	tw;		//used in calculations
-	register BYTE	ST = regP;
-	register TWIN	PC;
+	TWIN	tw;		//used in calculations
+	BYTE	ST = regP;
+	TWIN	PC;
 	BYTE			SP = regSP;
-	register BYTE	A = regA;
-	register BYTE	X = regX;
-	register BYTE	Y = regY;
+	BYTE	A = regA;
+	BYTE	X = regX;
+	BYTE	Y = regY;
 	TWIN			front;
 	TWIN			final;
 	PC.W = regPC;

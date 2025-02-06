@@ -90,8 +90,8 @@ public:
 
 	__forceinline void DoTicks(int ticks,BYTE* mix)
 	{
-		register int mn;
-		register int i;
+		int mn;
+		int i;
 		int usetick;
 		BYTE temp;
 
@@ -171,7 +171,7 @@ public:
 
 	__forceinline void Mix_Mono(int& mix,int downsample)
 	{
-		register int i;
+		int i;
 		for(i = 0; i < 8; i++)
 		{
 			mix += (nMixL[i] / downsample);
@@ -181,7 +181,7 @@ public:
 	
 	__forceinline void Mix_Stereo(int& mixL,int& mixR,int downsample)
 	{
-		register int i;
+		int i;
 		for(i = 0; i < 8; i++)
 		{
 			mixL += (nMixL[i] / downsample);

@@ -68,7 +68,7 @@ public:
 
 	__forceinline void DoTicks(int ticks,BYTE mix)
 	{
-		register int mn;
+		int mn;
 
 		if(!bChannelEnabled)
 			return;
@@ -163,7 +163,7 @@ public:
 
 	__forceinline void DoTicks(int ticks,BYTE mix)
 	{
-		register int mn;
+		int mn;
 
 		if(!bChannelEnabled)
 			return;
